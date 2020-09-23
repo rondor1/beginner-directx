@@ -38,8 +38,123 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	gb = 255;
+
+	if (wnd.kbd.KeyIsPressed(VK_RIGHT))
+	{
+		if (inhibitRight)
+		{
+		}
+		else
+		{
+			vx += 1;
+			inhibitRight = true;
+		}
+	}
+	else
+	{
+		inhibitRight = false;
+	}
+
+	if (wnd.kbd.KeyIsPressed(VK_LEFT))
+	{
+		if (inhibitLeft)
+		{
+
+		}
+		else
+		{
+			vx -= 1;
+			inhibitLeft = true;
+		}
+	}
+	else
+	{
+		inhibitLeft = false;
+	}
+
+	if (wnd.kbd.KeyIsPressed(VK_UP))
+	{
+		if (inhibitUp)
+		{
+		}
+		else
+		{
+			vy -= 1;
+			inhibitUp = true;
+		}
+	}
+	else
+	{
+		inhibitUp = false;
+	}
+
+	if (wnd.kbd.KeyIsPressed(VK_DOWN))
+	{
+		if (inhibitDown)
+		{
+
+		}
+		else
+		{
+			vy += 1;
+			inhibitDown = true;
+		}
+	}
+	else
+	{
+		inhibitDown = false;
+	}
+
+	x += vx;
+	y += vy;
+
+	if (wnd.kbd.KeyIsPressed(VK_CONTROL))
+	{
+		gb = 0;
+	}
+
+	shapeIsChanged = wnd.kbd.KeyIsPressed(VK_SHIFT);
 }
 
 void Game::ComposeFrame()
 {
+	if (shapeIsChanged)
+	{
+		gfx.PutPixel(-5 + x, -5 + y, 255, gb, gb);
+		gfx.PutPixel(-5 + x, -4 + y, 255, gb, gb);
+		gfx.PutPixel(-5 + x, -3 + y, 255, gb, gb);
+		gfx.PutPixel(-4 + x, -5 + y, 255, gb, gb);
+		gfx.PutPixel(-3 + x, -5 + y, 255, gb, gb);
+		gfx.PutPixel(-5 + x, 5 + y, 255, gb, gb);
+		gfx.PutPixel(-5 + x, 4 + y, 255, gb, gb);
+		gfx.PutPixel(-5 + x, 3 + y, 255, gb, gb);
+		gfx.PutPixel(-4 + x, 5 + y, 255, gb, gb);
+		gfx.PutPixel(-3 + x, 5 + y, 255, gb, gb);
+		gfx.PutPixel(5 + x, -5 + y, 255, gb, gb);
+		gfx.PutPixel(5 + x, -4 + y, 255, gb, gb);
+		gfx.PutPixel(5 + x, -3 + y, 255, gb, gb);
+		gfx.PutPixel(4 + x, -5 + y, 255, gb, gb);
+		gfx.PutPixel(3 + x, -5 + y, 255, gb, gb);
+		gfx.PutPixel(5 + x, 5 + y, 255, gb, gb);
+		gfx.PutPixel(5 + x, 4 + y, 255, gb, gb);
+		gfx.PutPixel(5 + x, 3 + y, 255, gb, gb);
+		gfx.PutPixel(4 + x, 5 + y, 255, gb, gb);
+		gfx.PutPixel(3 + x, 5 + y, 255, gb, gb);
+	}
+	else
+	{
+		gfx.PutPixel(-5 + x, y, 255, gb, gb);
+		gfx.PutPixel(-4 + x, y, 255, gb, gb);
+		gfx.PutPixel(-3 + x, y, 255, gb, gb);
+		gfx.PutPixel(3 + x, y, 255, gb, gb);
+		gfx.PutPixel(4 + x, y, 255, gb, gb);
+		gfx.PutPixel(5 + x, y, 255, gb, gb);
+		gfx.PutPixel(x, -5 + y, 255, gb, gb);
+		gfx.PutPixel(x, -4 + y, 255, gb, gb);
+		gfx.PutPixel(x, -3 + y, 255, gb, gb);
+		gfx.PutPixel(x, 3 + y, 255, gb, gb);
+		gfx.PutPixel(x, 4 + y, 255, gb, gb);
+		gfx.PutPixel(x, 5 + y, 255, gb, gb);
+	}
 }
