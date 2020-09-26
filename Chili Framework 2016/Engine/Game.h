@@ -34,6 +34,17 @@ public:
 private:
 	void ComposeFrame();
 	void UpdateModel();
+	void DrawDude(int x, int y);
+	void DrawPoo(int x, int y);
+	void DrawStartScreen(int x, int y);
+	void DrawGameOver(int x, int y);
+	int ClampScreenX(int x, int widht);
+	int ClampScreenY(int y, int height);
+	bool CheckCollision(int x0, int y0, int width0, int height0,
+						int x1, int y1, int height1, int width1);
+	bool DetectBoundaryHitX(int currentCoordinateX, int width, bool currentDirection);
+	bool DetectBoundaryHitY(int currentCoordinateY, int height, bool currentDirection);
+	void MovePoo(int& x, int& y, bool currentDirectionX, bool currentDirectionY);
 	/********************************/
 	/*  User Functions              */
 	/********************************/
@@ -43,4 +54,26 @@ private:
 	/********************************/
 	/*  User Variables              */
 	/********************************/
+	int dudeX = 400;
+	int dudeY = 300;
+	int dudeWidth = 20;
+	int dudeHeight = 20;
+	int poo0X = 340;
+	int poo0Y = 215;
+	bool isPoo0Eaten = false;
+	int poo1X = 170;
+	int poo1Y = 560;
+	bool isPoo1Eaten = false;
+	int poo2X = 220;
+	int poo2Y = 220;
+	bool isPoo2Eaten = false;
+	int pooWidth = 24;
+	int pooHeight = 24;
+	bool isGameStarted = false;
+	bool xBoundaryPoo0 = false;
+	bool yBoundaryPoo0 = false;
+	bool xBoundaryPoo1 = false;
+	bool yBoundaryPoo1 = false;
+	bool xBoundaryPoo2 = false;
+	bool yBoundaryPoo2 = false;
 };
