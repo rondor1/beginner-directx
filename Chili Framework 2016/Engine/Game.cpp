@@ -26,6 +26,8 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd)
 {
+	drawSizeX = smallestWidth;
+	drawSizeY = smallestHeight;
 }
 
 void Game::Go()
@@ -40,73 +42,74 @@ void Game::UpdateModel()
 {
 	if (wnd.kbd.KeyIsPressed(VK_RIGHT))
 	{
-		x_mobile = x_mobile + 1;
+		x += 1;
 	}
 
 	if (wnd.kbd.KeyIsPressed(VK_LEFT))
 	{
-		x_mobile = x_mobile - 1;
+		x -= 1;
 	}
 
 	if (wnd.kbd.KeyIsPressed(VK_DOWN))
 	{
-		y_mobile = y_mobile + 1;
+		y += 1;
 	}
 
 	if (wnd.kbd.KeyIsPressed(VK_UP))
 	{
-		y_mobile = y_mobile - 1;
+		y -= 1;
 	}
 
-	x_mobile = ClampScreenX(x_mobile);
-	y_mobile = ClampScreenY(y_mobile);
+	if (wnd.kbd.KeyIsPressed('W'))
+	{
+		if (drawSizeY > smallestHeight)
+		{
+			--drawSizeY;
+		}
+	}
 
-	colliding =
-		OverlapTest(x_fixed0, y_fixed0, x_mobile, y_mobile) ||
-		OverlapTest(x_fixed1, y_fixed1, x_mobile, y_mobile) ||
-		OverlapTest(x_fixed2, y_fixed2, x_mobile, y_mobile) ||
-		OverlapTest(x_fixed3, y_fixed3, x_mobile, y_mobile);
+	if (wnd.kbd.KeyIsPressed('S'))
+	{
+		if (drawSizeY < largestHeight)
+		{
+			++drawSizeY;
+		}
+	}
+
+	if (wnd.kbd.KeyIsPressed('A'))
+	{
+		if (drawSizeX > smallestWidth)
+		{
+			--drawSizeX;
+		}
+	}
+
+	if (wnd.kbd.KeyIsPressed('D'))
+	{
+		if (drawSizeX < largestWidth)
+		{
+			++drawSizeX;
+		}
+	}
+
 }
 
 void Game::ComposeFrame()
 {
-	DrawBox(x_fixed0, y_fixed0, 0, 255, 0);
-	DrawBox(x_fixed1, y_fixed1, 0, 255, 0);
-	DrawBox(x_fixed2, y_fixed2, 0, 255, 0);
-	DrawBox(x_fixed3, y_fixed3, 0, 255, 0);
-
-	if (colliding)
-	{
-		DrawBox(x_mobile, y_mobile, 255, 0, 0);
-	}
-	else
-	{
-		DrawBox(x_mobile, y_mobile, 255, 255, 255);
-	}
+	DrawBox(x, y, drawSizeX, drawSizeY, 255,255,255);
 }
 
-void Game::DrawBox(int x, int y, int r, int g, int b)
+void Game::DrawBox(int x, int y, int drawSizeX, int drawSizeY, int r, int g, int b)
 {
-	gfx.PutPixel(-5 + x, -5 + y, r, g, b);
-	gfx.PutPixel(-5 + x, -4 + y, r, g, b);
-	gfx.PutPixel(-5 + x, -3 + y, r, g, b);
-	gfx.PutPixel(-4 + x, -5 + y, r, g, b);
-	gfx.PutPixel(-3 + x, -5 + y, r, g, b);
-	gfx.PutPixel(-5 + x, 5 + y, r, g, b);
-	gfx.PutPixel(-5 + x, 4 + y, r, g, b);
-	gfx.PutPixel(-5 + x, 3 + y, r, g, b);
-	gfx.PutPixel(-4 + x, 5 + y, r, g, b);
-	gfx.PutPixel(-3 + x, 5 + y, r, g, b);
-	gfx.PutPixel(5 + x, -5 + y, r, g, b);
-	gfx.PutPixel(5 + x, -4 + y, r, g, b);
-	gfx.PutPixel(5 + x, -3 + y, r, g, b);
-	gfx.PutPixel(4 + x, -5 + y, r, g, b);
-	gfx.PutPixel(3 + x, -5 + y, r, g, b);
-	gfx.PutPixel(5 + x, 5 + y, r, g, b);
-	gfx.PutPixel(5 + x, 4 + y, r, g, b);
-	gfx.PutPixel(5 + x, 3 + y, r, g, b);
-	gfx.PutPixel(4 + x, 5 + y, r, g, b);
-	gfx.PutPixel(3 + x, 5 + y, r, g, b);
+
+	for (int i = 0; i < drawSizeX; ++i)
+	{
+		for (int j = 0; j < drawSizeY; ++j)
+		{
+			gfx.PutPixel(x + i, y + j, r, g, b);
+		}
+	}
+
 }
 
 bool Game::OverlapTest(int box0x, int box0y, int box1x, int box1y)
