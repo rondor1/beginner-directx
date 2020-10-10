@@ -90,15 +90,15 @@ void Game::UpdateModel()
 
         if (!poo0.isPooEaten)
         {
-            poo0.isPooEaten = dude.CheckCollision(poo0.x, poo0.y, Poo::width, Poo::height);
+            poo0.CheckCollision(dude.x, dude.y, Dude::width, Dude::height);
         }
         if (!poo1.isPooEaten)
         {
-            poo1.isPooEaten = dude.CheckCollision(poo1.x, poo1.y, Poo::width, Poo::height);
+            poo1.CheckCollision(dude.x, dude.y, Dude::width, Dude::height);
         }
         if (!poo2.isPooEaten)
         {
-            poo2.isPooEaten = dude.CheckCollision(poo2.x, poo2.y, Poo::width, Poo::height);
+            poo2.CheckCollision(dude.x, dude.y, Dude::width, Dude::height);
         }
     }
     else

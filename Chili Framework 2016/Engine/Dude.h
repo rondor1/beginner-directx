@@ -3,7 +3,6 @@
 class Dude
 {
 public:
-	bool CheckCollision(int objX, int objY, int objWidth, int objHeight);
 	void ClampDude();
 public:
 	int x = 400;

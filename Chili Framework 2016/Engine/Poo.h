@@ -4,6 +4,7 @@ class Poo
 {
 public:
 	void Update();
+	void CheckCollision(int objX, int objY, int objWidth, int objHeight);
 public:
 	int x;
 	int y;

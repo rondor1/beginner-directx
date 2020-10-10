@@ -1,20 +1,8 @@
 #include "Dude.h"
 #include "Graphics.h"
 
-bool Dude::CheckCollision(int objX, int objY, int objWidth, int objHeight)
-{
-    int right = x + width;
-    int bottom = y + height;
-    int objRight = objX + objWidth;
-    int objBottom = objY + objHeight;
-
-    return x <= objRight && objX <= right
-        && objY <= bottom && y <= objBottom;
-}
-
 void Dude::ClampDude()
 {
-
     const int right = x + width;
     const int bottom = y + height;
 

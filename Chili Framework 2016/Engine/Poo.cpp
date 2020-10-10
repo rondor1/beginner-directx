@@ -30,6 +30,15 @@ void Poo::Update()
 		y = (Graphics::ScreenHeight - 1) - height;
 		vy = -vy;
 	}
+}
 
+void Poo::CheckCollision(int objX, int objY, int objWidth, int objHeight)
+{
+	int right = x + width;
+	int bottom = y + height;
+	int objRight = objX + objWidth;
+	int objBottom = objY + objHeight;
 
+	isPooEaten = (x <= objRight && bottom >= objY
+		&& right >= objX && y <= objBottom);
 }
