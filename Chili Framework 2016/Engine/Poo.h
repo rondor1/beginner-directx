@@ -1,10 +1,15 @@
 #pragma once
 
+#include "Graphics.h"
+#include "Dude.h"
+
 class Poo
 {
 public:
 	void Update();
-	void CheckCollision(int objX, int objY, int objWidth, int objHeight);
+	void ProcessConsumption(int objX, int objY, int objWidth, int objHeight);
+	void ProcessConsumption(const Dude& dude);
+	void DrawPoo(Graphics& gfx);
 public:
 	int x;
 	int y;
