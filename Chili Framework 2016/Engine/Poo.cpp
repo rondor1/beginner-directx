@@ -50,8 +50,8 @@ void Poo::ProcessConsumption(const Dude& dude)
     int pooRight = x + width;
     int pooBottom = y + height;
 
-    isPooEaten = dude.x <= pooRight && x >= dudeRight
-        && dude.y <= pooBottom && y >= dudeBottom;
+    isPooEaten = (x <= dudeRight && pooBottom >= dude.y
+        && pooRight >= dude.x && y <= dudeBottom);
 }
 
 void Poo::DrawPoo(Graphics& gfx)
