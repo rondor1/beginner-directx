@@ -1,9 +1,12 @@
 #pragma once
 
+class Graphics;
+
 class Dude
 {
 public:
 	void ClampDude();
+	void DrawDude(Graphics& gfx);
 public:
 	int x = 400;
 	int y = 300;
