@@ -26,8 +26,6 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd)
 {
-	drawSizeX = smallestWidth;
-	drawSizeY = smallestHeight;
 }
 
 void Game::Go()
@@ -42,74 +40,35 @@ void Game::UpdateModel()
 {
 	if (wnd.kbd.KeyIsPressed(VK_RIGHT))
 	{
-		x += 1;
+		x0 += 1;
 	}
 
 	if (wnd.kbd.KeyIsPressed(VK_LEFT))
 	{
-		x -= 1;
+		x0 -= 1;
 	}
 
 	if (wnd.kbd.KeyIsPressed(VK_DOWN))
 	{
-		y += 1;
+		y0 += 1;
 	}
 
 	if (wnd.kbd.KeyIsPressed(VK_UP))
 	{
-		y -= 1;
+		y0 -= 1;
 	}
 
-	if (wnd.kbd.KeyIsPressed('W'))
+	if (wnd.mouse.LeftIsPressed())
 	{
-		if (drawSizeY > smallestHeight)
-		{
-			--drawSizeY;
-		}
-	}
-
-	if (wnd.kbd.KeyIsPressed('S'))
-	{
-		if (drawSizeY < largestHeight)
-		{
-			++drawSizeY;
-		}
-	}
-
-	if (wnd.kbd.KeyIsPressed('A'))
-	{
-		if (drawSizeX > smallestWidth)
-		{
-			--drawSizeX;
-		}
-	}
-
-	if (wnd.kbd.KeyIsPressed('D'))
-	{
-		if (drawSizeX < largestWidth)
-		{
-			++drawSizeX;
-		}
+		x1 = wnd.mouse.GetPosX();
+		y1 = wnd.mouse.GetPosY();
 	}
 
 }
 
 void Game::ComposeFrame()
 {
-	DrawBox(x, y, drawSizeX, drawSizeY, 255,255,255);
-}
-
-void Game::DrawBox(int x, int y, int drawSizeX, int drawSizeY, int r, int g, int b)
-{
-
-	for (int i = 0; i < drawSizeX; ++i)
-	{
-		for (int j = 0; j < drawSizeY; ++j)
-		{
-			gfx.PutPixel(x + i, y + j, r, g, b);
-		}
-	}
-
+	gfx.DrawRect(x0, y0, x1, y1, { 255, 255, 255 });
 }
 
 bool Game::OverlapTest(int box0x, int box0y, int box1x, int box1y)

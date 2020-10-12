@@ -47,13 +47,9 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-	int smallestWidth = 20;
-	int smallestHeight = 20;
-	int largestWidth = Graphics::ScreenWidth / 2;
-	int largestHeight = Graphics::ScreenHeight / 2;
-	int x = 400;
-	int y = 300;
-	int drawSizeX;
-	int drawSizeY;
+	int x0 = 100;
+	int y0 = 100;
+	int x1 = 200;
+	int y1 = 200;
 	/********************************/
 };
