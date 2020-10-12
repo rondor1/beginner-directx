@@ -6,11 +6,13 @@
 class Poo
 {
 public:
+	Poo(int in_x, int in_y, int in_vx, int in_vy);
 	void Update();
 	void ProcessConsumption(int objX, int objY, int objWidth, int objHeight);
 	void ProcessConsumption(const Dude& dude);
 	void DrawPoo(Graphics& gfx);
-public:
+	bool isEaten() const;
+private:
 	int x;
 	int y;
 	int vx;

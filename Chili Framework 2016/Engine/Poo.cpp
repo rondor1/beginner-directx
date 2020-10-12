@@ -1,6 +1,14 @@
 #include "Poo.h"
 #include "Graphics.h"
 
+Poo::Poo(int in_x, int in_y, int in_vx, int in_vy)
+{
+    x = in_x;
+    y = in_y;
+    vx = in_vx;
+    vy = in_vy;
+}
+
 void Poo::Update()
 {
 	x += vx;
@@ -288,4 +296,9 @@ void Poo::DrawPoo(Graphics& gfx)
     gfx.PutPixel(5 + x, 23 + y, 51, 28, 0);
     gfx.PutPixel(6 + x, 23 + y, 51, 28, 0);
 
+}
+
+bool Poo::isEaten() const
+{
+    return isPooEaten;
 }

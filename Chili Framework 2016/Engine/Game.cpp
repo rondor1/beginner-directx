@@ -25,29 +25,17 @@
 Game::Game(MainWindow& wnd)
     :
     wnd(wnd),
-    gfx(wnd)
+    gfx(wnd),
+    rng(rd()),
+    xDist(0,770),
+    yDist(0,570),
+    poo0(xDist(rng), yDist(rng), 1,1),
+    poo1(xDist(rng), yDist(rng), -1,1),
+    poo2(xDist(rng), yDist(rng), 1,-1)
 {
-    std::random_device rd;
-    std::mt19937 rng(rd());
-    std::uniform_int_distribution<int> xDist(0, 770);
-    std::uniform_int_distribution<int> yDist(0, 570);
-    poo0.x = xDist(rng);
-    poo0.y = yDist(rng);
-    poo1.x = xDist(rng);
-    poo1.y = yDist(rng);
-    poo2.x = xDist(rng);
-    poo2.y = yDist(rng);
-
 
     dude.vx = 1;
     dude.vy = 1;
-
-    poo0.vx = 1;
-    poo0.vy = 1;
-    poo1.vx = -1;
-    poo1.vy = 1;
-    poo2.vx = 1;
-    poo2.vy = -1;
 }
 
 void Game::Go()
@@ -88,15 +76,15 @@ void Game::UpdateModel()
         poo1.Update();
         poo2.Update();
 
-        if (!poo0.isPooEaten)
+        if (!poo0.isEaten())
         {
             poo0.ProcessConsumption(dude);
         }
-        if (!poo1.isPooEaten)
+        if (!poo1.isEaten())
         {
             poo1.ProcessConsumption(dude);
         }
-        if (!poo2.isPooEaten)
+        if (!poo2.isEaten())
         {
             poo2.ProcessConsumption(dude);
         }
@@ -120,22 +108,22 @@ void Game::ComposeFrame()
     }
     else
     {
-        if (poo0.isPooEaten && poo1.isPooEaten && poo2.isPooEaten)
+        if (poo0.isEaten() && poo1.isEaten() && poo2.isEaten())
         {
             DrawGameOver(258, 268);
         }
         else
         {
             dude.DrawDude(gfx);
-            if (!poo0.isPooEaten)
+            if (!poo0.isEaten())
             {
                 poo0.DrawPoo(gfx);
             }
-            if (!poo1.isPooEaten)
+            if (!poo1.isEaten())
             {
                 poo1.DrawPoo(gfx);
             }
-            if (!poo2.isPooEaten)
+            if (!poo2.isEaten())
             {
                 poo2.DrawPoo(gfx);
             }
