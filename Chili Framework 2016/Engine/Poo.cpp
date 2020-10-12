@@ -53,13 +53,13 @@ void Poo::ProcessConsumption(int objX, int objY, int objWidth, int objHeight)
 
 void Poo::ProcessConsumption(const Dude& dude)
 {
-    int dudeRight = dude.x + dude.width;
-    int dudeBottom = dude.y + dude.height;
+    int dudeRight = dude.GetX() + dude.GetWidth();
+    int dudeBottom = dude.GetY() + dude.GetHeight();
     int pooRight = x + width;
     int pooBottom = y + height;
 
-    isPooEaten = (x <= dudeRight && pooBottom >= dude.y
-        && pooRight >= dude.x && y <= dudeBottom);
+    isPooEaten = (x <= dudeRight && pooBottom >= dude.GetY()
+        && pooRight >= dude.GetX() && y <= dudeBottom);
 }
 
 void Poo::DrawPoo(Graphics& gfx)

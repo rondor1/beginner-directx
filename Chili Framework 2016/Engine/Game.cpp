@@ -29,13 +29,17 @@ Game::Game(MainWindow& wnd)
     rng(rd()),
     xDist(0,770),
     yDist(0,570),
+    dude(400, 300, 1, 1),
     poo0(xDist(rng), yDist(rng), 1,1),
     poo1(xDist(rng), yDist(rng), -1,1),
-    poo2(xDist(rng), yDist(rng), 1,-1)
+    poo2(xDist(rng), yDist(rng), 1,-1),
+    poo3(xDist(rng), yDist(rng), 1,-1),
+    poo4(xDist(rng), yDist(rng), 1,-1),
+    poo5(xDist(rng), yDist(rng), 1,-1),
+    poo6(xDist(rng), yDist(rng), 1,-1),
+    poo7(xDist(rng), yDist(rng), 1,-1),
+    poo8(xDist(rng), yDist(rng), 1,-1)
 {
-
-    dude.vx = 1;
-    dude.vy = 1;
 }
 
 void Game::Go()
@@ -52,22 +56,22 @@ void Game::UpdateModel()
     {
         if (wnd.kbd.KeyIsPressed(VK_LEFT))
         {
-            dude.x -= dude.vx;
+            dude.SetVX(-1);
         }
 
         if (wnd.kbd.KeyIsPressed(VK_RIGHT))
         {
-            dude.x += dude.vx;
+            dude.SetVX(1);
         }
 
         if (wnd.kbd.KeyIsPressed(VK_UP))
         {
-            dude.y -= dude.vy;
+            dude.SetVY(-1);
         }
 
         if (wnd.kbd.KeyIsPressed(VK_DOWN))
         {
-            dude.y += dude.vy;
+            dude.SetVY(1);
         }
 
         dude.ClampDude();
@@ -75,6 +79,12 @@ void Game::UpdateModel()
         poo0.Update();
         poo1.Update();
         poo2.Update();
+        poo3.Update();
+        poo4.Update();
+        poo5.Update();
+        poo6.Update();
+        poo7.Update();
+        poo8.Update();
 
         if (!poo0.isEaten())
         {
@@ -87,6 +97,30 @@ void Game::UpdateModel()
         if (!poo2.isEaten())
         {
             poo2.ProcessConsumption(dude);
+        }
+        if (!poo3.isEaten())
+        {
+            poo3.ProcessConsumption(dude);
+        }
+        if (!poo4.isEaten())
+        {
+            poo4.ProcessConsumption(dude);
+        }
+        if (!poo5.isEaten())
+        {
+            poo5.ProcessConsumption(dude);
+        }
+        if (!poo6.isEaten())
+        {
+            poo6.ProcessConsumption(dude);
+        }
+        if (!poo7.isEaten())
+        {
+            poo7.ProcessConsumption(dude);
+        }
+        if (!poo8.isEaten())
+        {
+            poo8.ProcessConsumption(dude);
         }
     }
     else
@@ -108,7 +142,9 @@ void Game::ComposeFrame()
     }
     else
     {
-        if (poo0.isEaten() && poo1.isEaten() && poo2.isEaten())
+        if (poo0.isEaten() && poo1.isEaten() && poo2.isEaten() &&
+            poo3.isEaten() && poo4.isEaten() && poo5.isEaten()&&
+            poo6.isEaten() && poo7.isEaten() && poo8.isEaten())
         {
             DrawGameOver(258, 268);
         }
@@ -126,6 +162,30 @@ void Game::ComposeFrame()
             if (!poo2.isEaten())
             {
                 poo2.DrawPoo(gfx);
+            }
+            if (!poo3.isEaten())
+            {
+                poo3.DrawPoo(gfx);
+            }
+            if (!poo4.isEaten())
+            {
+                poo4.DrawPoo(gfx);
+            }
+            if (!poo5.isEaten())
+            {
+                poo5.DrawPoo(gfx);
+            }
+            if (!poo6.isEaten())
+            {
+                poo6.DrawPoo(gfx);
+            }
+            if (!poo7.isEaten())
+            {
+                poo7.DrawPoo(gfx);
+            }
+            if (!poo8.isEaten())
+            {
+                poo8.DrawPoo(gfx);
             }
         }
     }

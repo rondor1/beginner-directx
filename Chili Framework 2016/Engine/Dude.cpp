@@ -1,6 +1,20 @@
 #include "Dude.h"
 #include "Graphics.h"
 
+Dude::Dude(int in_x, int in_y, int in_vx, int in_vy)
+{
+    x = in_x;
+    y = in_y;
+    vx = in_vx;
+    vy = in_vy;
+}
+
+void Dude::MoveDude(int in_vx, int in_vy)
+{
+    x += in_vx * vx;
+    y += in_vy * in_vy;
+}
+
 void Dude::ClampDude()
 {
     const int right = x + width;
@@ -344,5 +358,37 @@ void Dude::DrawDude(Graphics& gfx)
     gfx.PutPixel(11 + x, 19 + y, 0, 0, 0);
     gfx.PutPixel(12 + x, 19 + y, 0, 0, 0);
 
+}
+
+int Dude::GetX() const
+{
+    return x;
+}
+
+int Dude::GetY() const
+{
+    return y;
+}
+
+int Dude::GetWidth() const
+{
+    return width;
+}
+
+int Dude::GetHeight() const
+{
+    return height;
+}
+
+void Dude::SetVX(int in_vx)
+{
+    vx = in_vx;
+    x += in_vx;
+}
+
+void Dude::SetVY(int in_vy)
+{
+    vy = in_vy;
+    y += vy;
 }
  
