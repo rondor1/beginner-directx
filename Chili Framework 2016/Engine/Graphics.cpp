@@ -338,6 +338,18 @@ void Graphics::DrawRect(int x0, int y0, int x1, int y1, Color c)
 	}
 }
 
+void Graphics::DrawRect(int x0, int y0, int width, int height, int r, int g, int b)
+{
+	for (int y = y0; y < y0 + height; ++y)
+	{
+		for (int x = x0; x < x0 + width; ++x)
+		{
+			PutPixel(x, y, { (unsigned char)r, (unsigned char)g, (unsigned char)b });
+		}
+	}
+}
+
+
 
 //////////////////////////////////////////////////
 //           Graphics Exception

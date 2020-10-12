@@ -69,6 +69,7 @@ void Game::UpdateModel()
 void Game::ComposeFrame()
 {
 	gfx.DrawRect(x0, y0, x1, y1, { 255, 255, 255 });
+	gfx.DrawRect(50, 70, 320, 170, 255, 255, 0);
 }
 
 bool Game::OverlapTest(int box0x, int box0y, int box1x, int box1y)
