@@ -106,6 +106,7 @@ void Game::ComposeFrame()
         DrawGameOver(258, 268);
         rect.DrawRandomRect(gfx);
         dude.DrawDude(gfx);
+        score.DrawScore(gfx);
         for (int i = 0; i < nPoo; ++i)
         {
             if (!poos[i].isEaten())
@@ -118,6 +119,7 @@ void Game::ComposeFrame()
     {
         if (rect.isEaten())
         {
+            score.increaseScaleFactor();
             rect.Init(xDist(rng), yDist(rng));
         }
         rect.DrawRandomRect(gfx);
@@ -137,6 +139,7 @@ void Game::ComposeFrame()
                 poos[i].DrawPoo(gfx);
             }
         }
+        score.DrawScore(gfx);
     }
 }
 

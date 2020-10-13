@@ -16,4 +16,7 @@ private:
     bool eaten = false;
     int width = 20;
     int height = 20;
+    int r = 255;
+    int g = 0;
+    int b = 0;
 };

@@ -11,7 +11,11 @@ void Rect::Init(int in_x, int in_y)
 
 void Rect::DrawRandomRect(Graphics& gfx)
 {
-    gfx.DrawRect(x, y, width, height, 255, 0, 0);
+    
+    g = (g <= 255) ? ++g : 0;
+    b = (b <= 255) ? ++b : 0;
+
+    gfx.DrawRect(x, y, width, height, r, g, b);
 }
 
 void Rect::RectCollected(Dude& dude)
