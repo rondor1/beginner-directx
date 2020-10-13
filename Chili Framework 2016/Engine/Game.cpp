@@ -31,6 +31,7 @@ Game::Game(MainWindow& wnd)
     yDist(0, 570),
     dude(400, 300, 1, 1)
 {
+    rect.Init(xDist(rng), yDist(rng));
     std::uniform_int_distribution<int> vDist(-1, 1);
     for (int i = 0; i < nPoo; ++i)
     {
@@ -48,7 +49,7 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-    if (isGameStarted)
+    if (isGameStarted && !isGameOver)
     {
         if (wnd.kbd.KeyIsPressed(VK_LEFT))
         {
@@ -72,6 +73,8 @@ void Game::UpdateModel()
 
         dude.ClampDude();
 
+        rect.RectCollected(dude);
+
         for (int i = 0; i < nPoo; ++i)
         {
             poos[i].Update();
@@ -80,7 +83,6 @@ void Game::UpdateModel()
                 poos[i].ProcessConsumption(dude);
             }
         }
-
     }
     else
     {
@@ -99,26 +101,40 @@ void Game::ComposeFrame()
     {
         DrawStartScreen(220, 270);
     }
+    else if (isGameOver)
+    {
+        DrawGameOver(258, 268);
+        rect.DrawRandomRect(gfx);
+        dude.DrawDude(gfx);
+        for (int i = 0; i < nPoo; ++i)
+        {
+            if (!poos[i].isEaten())
+            {
+                poos[i].DrawPoo(gfx);
+            }
+        }
+    }
     else
     {
+        if (rect.isEaten())
+        {
+            rect.Init(xDist(rng), yDist(rng));
+        }
+        rect.DrawRandomRect(gfx);
         bool allEaten = true;
         for (int i = 0; i < nPoo; ++i)
         {
-            allEaten = allEaten && poos[i].isEaten();
-        }
-        if (allEaten)
-        {
-            DrawGameOver(258, 268);
-        }
-        else
-        {
-            dude.DrawDude(gfx);
-            for (int i = 0; i < nPoo; ++i)
+            if (poos[i].isEaten())
             {
-                if (!poos[i].isEaten())
-                {
-                    poos[i].DrawPoo(gfx);
-                }
+                isGameOver = true;
+            }
+        }
+        dude.DrawDude(gfx);
+        for (int i = 0; i < nPoo; ++i)
+        {
+            if (!poos[i].isEaten())
+            {
+                poos[i].DrawPoo(gfx);
             }
         }
     }
