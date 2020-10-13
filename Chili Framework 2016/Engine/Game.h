@@ -1,5 +1,5 @@
-/******************************************************************************************
- *	Chili DirectX Framework Version 16.07.20											  *
+/****************************************************************************************** 
+ *	Chili DirectX Framework Version 16.07.20											  *	
  *	Game.h																				  *
  *	Copyright 2016 PlanetChili.net <http://www.planetchili.net>							  *
  *																						  *
@@ -23,44 +23,24 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
-#include "Poo.h"
-#include "Dude.h"
-#include "Rect.h"
-#include "Score.h"
-#include <random>
 
 class Game
 {
 public:
-    Game(class MainWindow& wnd);
-    Game(const Game&) = delete;
-    Game& operator=(const Game&) = delete;
-    void Go();
+	Game( class MainWindow& wnd );
+	Game( const Game& ) = delete;
+	Game& operator=( const Game& ) = delete;
+	void Go();
 private:
-    void ComposeFrame();
-    void UpdateModel();
-    void DrawDude(int x, int y);
-    void DrawPoo(int x, int y);
-    void DrawStartScreen(int x, int y);
-    void DrawGameOver(int x, int y);
-    /********************************/
-    /*  User Functions              */
-    /********************************/
+	void ComposeFrame();
+	void UpdateModel();
+	/********************************/
+	/*  User Functions              */
+	/********************************/
 private:
-    MainWindow& wnd;
-    Graphics gfx;
-    /********************************/
-    /*  User Variables              */
-    /********************************/
-    std::random_device rd;
-    std::mt19937 rng;
-    std::uniform_int_distribution<int> xDist;
-    std::uniform_int_distribution<int> yDist;
-    Dude dude;
-    Rect rect;
-    Score score;
-    static constexpr int nPoo = 10;
-    Poo poos[nPoo];
-    bool isGameStarted = false;
-    bool isGameOver = false;
+	MainWindow& wnd;
+	Graphics gfx;
+	/********************************/
+	/*  User Variables              */
+	/********************************/
 };
