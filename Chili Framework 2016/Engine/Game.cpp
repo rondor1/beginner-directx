@@ -27,19 +27,15 @@ Game::Game(MainWindow& wnd)
     wnd(wnd),
     gfx(wnd),
     rng(rd()),
-    xDist(0,770),
-    yDist(0,570),
-    dude(400, 300, 1, 1),
-    poo0(xDist(rng), yDist(rng), 1,1),
-    poo1(xDist(rng), yDist(rng), -1,1),
-    poo2(xDist(rng), yDist(rng), 1,-1),
-    poo3(xDist(rng), yDist(rng), 1,-1),
-    poo4(xDist(rng), yDist(rng), 1,-1),
-    poo5(xDist(rng), yDist(rng), 1,-1),
-    poo6(xDist(rng), yDist(rng), 1,-1),
-    poo7(xDist(rng), yDist(rng), 1,-1),
-    poo8(xDist(rng), yDist(rng), 1,-1)
+    xDist(0, 770),
+    yDist(0, 570),
+    dude(400, 300, 1, 1)
 {
+    std::uniform_int_distribution<int> vDist(-1, 1);
+    for (int i = 0; i < nPoo; ++i)
+    {
+        poos[i].Init(xDist(rng), yDist(rng), vDist(rng), vDist(rng));
+    }
 }
 
 void Game::Go()
@@ -76,52 +72,15 @@ void Game::UpdateModel()
 
         dude.ClampDude();
 
-        poo0.Update();
-        poo1.Update();
-        poo2.Update();
-        poo3.Update();
-        poo4.Update();
-        poo5.Update();
-        poo6.Update();
-        poo7.Update();
-        poo8.Update();
+        for (int i = 0; i < nPoo; ++i)
+        {
+            poos[i].Update();
+            if (!poos[i].isEaten())
+            {
+                poos[i].ProcessConsumption(dude);
+            }
+        }
 
-        if (!poo0.isEaten())
-        {
-            poo0.ProcessConsumption(dude);
-        }
-        if (!poo1.isEaten())
-        {
-            poo1.ProcessConsumption(dude);
-        }
-        if (!poo2.isEaten())
-        {
-            poo2.ProcessConsumption(dude);
-        }
-        if (!poo3.isEaten())
-        {
-            poo3.ProcessConsumption(dude);
-        }
-        if (!poo4.isEaten())
-        {
-            poo4.ProcessConsumption(dude);
-        }
-        if (!poo5.isEaten())
-        {
-            poo5.ProcessConsumption(dude);
-        }
-        if (!poo6.isEaten())
-        {
-            poo6.ProcessConsumption(dude);
-        }
-        if (!poo7.isEaten())
-        {
-            poo7.ProcessConsumption(dude);
-        }
-        if (!poo8.isEaten())
-        {
-            poo8.ProcessConsumption(dude);
-        }
     }
     else
     {
@@ -142,50 +101,24 @@ void Game::ComposeFrame()
     }
     else
     {
-        if (poo0.isEaten() && poo1.isEaten() && poo2.isEaten() &&
-            poo3.isEaten() && poo4.isEaten() && poo5.isEaten()&&
-            poo6.isEaten() && poo7.isEaten() && poo8.isEaten())
+        bool allEaten = true;
+        for (int i = 0; i < nPoo; ++i)
+        {
+            allEaten = allEaten && poos[i].isEaten();
+        }
+        if (allEaten)
         {
             DrawGameOver(258, 268);
         }
         else
         {
             dude.DrawDude(gfx);
-            if (!poo0.isEaten())
+            for (int i = 0; i < nPoo; ++i)
             {
-                poo0.DrawPoo(gfx);
-            }
-            if (!poo1.isEaten())
-            {
-                poo1.DrawPoo(gfx);
-            }
-            if (!poo2.isEaten())
-            {
-                poo2.DrawPoo(gfx);
-            }
-            if (!poo3.isEaten())
-            {
-                poo3.DrawPoo(gfx);
-            }
-            if (!poo4.isEaten())
-            {
-                poo4.DrawPoo(gfx);
-            }
-            if (!poo5.isEaten())
-            {
-                poo5.DrawPoo(gfx);
-            }
-            if (!poo6.isEaten())
-            {
-                poo6.DrawPoo(gfx);
-            }
-            if (!poo7.isEaten())
-            {
-                poo7.DrawPoo(gfx);
-            }
-            if (!poo8.isEaten())
-            {
-                poo8.DrawPoo(gfx);
+                if (!poos[i].isEaten())
+                {
+                    poos[i].DrawPoo(gfx);
+                }
             }
         }
     }
