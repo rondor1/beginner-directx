@@ -23,6 +23,9 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include "Board.h"
+#include "Snake.h"
+#include <random>
 
 class Game
 {
@@ -43,4 +46,10 @@ private:
 	/********************************/
 	/*  User Variables              */
 	/********************************/
+	Snake snake;
+	Board brd;
+	Location delta_loc = { 1,0 };
+	int snakeMovePeriod = 20;
+	int snakeMoveCounter = 0;
+	std::mt19937 rng;
 };

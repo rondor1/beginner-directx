@@ -21,16 +21,20 @@
 #include "MainWindow.h"
 #include "Game.h"
 
-Game::Game( MainWindow& wnd )
+Game::Game(MainWindow& wnd)
 	:
-	wnd( wnd ),
-	gfx( wnd )
+	wnd(wnd),
+	gfx(wnd),
+	brd(gfx),
+	rng(std::random_device()()),
+	snake({10, 10})
 {
+
 }
 
 void Game::Go()
 {
-	gfx.BeginFrame();	
+	gfx.BeginFrame();
 	UpdateModel();
 	ComposeFrame();
 	gfx.EndFrame();
@@ -38,8 +42,38 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	if (wnd.kbd.KeyIsPressed(VK_UP))
+	{
+		delta_loc = { 0,-1 };
+	}
+
+	if (wnd.kbd.KeyIsPressed(VK_DOWN))
+	{
+		delta_loc = { 0,1 };
+	}
+
+	if (wnd.kbd.KeyIsPressed(VK_RIGHT))
+	{
+		delta_loc = { 1,0 };
+	}
+
+	if (wnd.kbd.KeyIsPressed(VK_LEFT))
+	{
+		delta_loc = { -1,0 };
+	}
+
+	++snakeMoveCounter;
+	if (snakeMoveCounter >= snakeMovePeriod)
+	{
+		snakeMoveCounter = 0;
+		snake.MoveBy(delta_loc);
+	}
 }
 
 void Game::ComposeFrame()
 {
+	if (!snake.GetSnakeSegmentCollision())
+	{
+		snake.DrawSnake(brd);
+	}
 }
